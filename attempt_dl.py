@@ -1,6 +1,7 @@
 import features
 
 import pandas as pd
+import numpy as np
 
 from keras import layers
 from keras import models
@@ -33,6 +34,10 @@ y_pred = model.predict(X_test)
 submission = pd.DataFrame(y_pred)
 submission.insert(0, 'PassengerId', range(892, 892+418))
 submission = submission.rename(columns={0: "Survived"})
+submission['Survived'] = round(submission['Survived'])
+submission['Survived'] = submission['Survived'].astype(np.int64)
 
 score = model.evaluate(X_test, y_test, verbose=1)
 print(score)
+
+submission.to_csv('submission_dl.csv', index=False)
