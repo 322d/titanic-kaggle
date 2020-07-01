@@ -12,11 +12,12 @@ X_train.flatten()
 y_train.flatten()
 
 model = models.Sequential()
-model.add(layers.Dense(16, activation='relu', input_shape=(8,)))
-model.add(layers.Dense(16, activation='relu'))
+model.add(layers.Dense(8, activation='relu', input_shape=(8,)))
+model.add(layers.Dense(8, activation='relu'))
+model.add(layers.Dense(4, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy',
-              optimizer='sgd',
+model.compile(loss='binary_crossentropy',  
+              optimizer='sgd', 
               metrics=['accuracy'])
 
 model.fit(X_train, y_train, epochs=8, batch_size=1, verbose=1)
