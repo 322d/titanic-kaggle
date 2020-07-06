@@ -12,15 +12,20 @@ X_train.flatten()
 y_train.flatten()
 
 model = models.Sequential()
-model.add(layers.Dense(8, activation='relu', input_shape=(8,)))
-model.add(layers.Dense(8, activation='relu'))
-model.add(layers.Dense(4, activation='relu'))
-model.add(layers.Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy',  
-              optimizer='sgd', 
-              metrics=['accuracy'])
+model.add(layers.Dense(64, activation='relu', input_shape=(8,)))
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(32, activation='relu'))
+model.add(layers.Dense(16, activation='relu'))
+# model.add(layers.Dense(1, activation='sigmoid'))
+model.add(layers.Dense(1))
+# model.compile(loss='binary_crossentropy',  
+#               optimizer='sgd', 
+#               metrics=['accuracy'])
+model.compile(loss='mse',  
+              optimizer='rmsprop', 
+              metrics=['mae'])
 
-model.fit(X_train, y_train, epochs=8, batch_size=1, verbose=1)
+model.fit(X_train, y_train, epochs=500, batch_size=1, verbose=1)
 
 y_test = pd.read_csv('submission.csv')
 y_test = y_test.drop('PassengerId', axis=1)
